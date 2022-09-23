@@ -61,19 +61,19 @@ void AddEvent(EventList *this, Event *event)
             }
             else
             { 
-                  printf("%s\n",this->head->eventName);
-                     while (i!=0)
+                printf("%s\n",this->head->eventName);
+                while (i!=0)
+                {
+                    if((this->head+i)->next==NULL)
                     {
-                        if((this->head+i)->next==NULL)
-                        {
-                            i=0;
-                            printf("%s\n",(this->head+i)->eventName);
-                        }
-                        else
-                        {
-                            printf("a");
-                            printf("%s\n",(this->head+i)->eventName);
-                        }
-                     } 
+                        i=0;
+                        printf("%s\n",(this->head+i)->eventName);
+                    }
+                    else
+                    {
+                        printf("a");
+                        printf("%s\n",(this->head+i)->eventName);
+                    }
+                } 
             }
     }
