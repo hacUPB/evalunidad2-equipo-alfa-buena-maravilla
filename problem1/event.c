@@ -13,4 +13,5 @@ Event *event = malloc(sizeof(Event)*1);
 void DestroyEvent(Event *this)
 {
     free(this);
+
 }
