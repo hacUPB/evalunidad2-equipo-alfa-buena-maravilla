@@ -37,7 +37,8 @@ Event *SearchEvent(EventList *this, char *name)
             {
                 break;
             }
-            int A=strcmp(EventoActual->eventName,name)
+            int A=strcmp(EventoActual->eventName,name);
+            
             if(!A)
             {
                 EncontrarEvento=EventoActual;
@@ -90,7 +91,7 @@ void AddEvent(EventList *this, Event *event)
         }
         else
         {
-            this->last-next=event;
+            this->last->next=event;
             this->last=event;
         }
     }
