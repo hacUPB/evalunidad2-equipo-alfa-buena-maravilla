@@ -37,11 +37,14 @@ void AddEvent(EventList *this, Event *event)
         Event *tmpEvent = this->head;
         while (tmpEvent != NULL){
             int result = strcmp(event->eventName, tmpEvent->eventName);
-            if (result == 0){
-                stateAdd = true;
-            }
-            else{
+            if (result == 0)
+            {
                 stateAdd = false;
+                break;
+            }
+            else
+            {
+                stateAdd = true;
             }
             tmpEvent = tmpEvent->next;
         }
