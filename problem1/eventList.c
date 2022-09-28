@@ -74,66 +74,60 @@ Event *SearchEvent(EventList *this, char *name)
     //Hay 3 casos, si el evento que quiero eliminar es el primero el evento anterior es NULL
     //Si el ultimo evento es el que quiero eliminar el evento actual tiene que volverse el anterior
     
-    void RemoveEvent(EventList *this, char *name)
-    {
-        Event *eventTmp = SearchEvent(this, name); // busco el evento
+void RemoveEvent(EventList *this, char *name)
+{
+    Event *eventTmp = SearchEvent(this, name); // busco el evento
     if (eventTmp != NULL)                      // si lo encontró, va a eliminarlo
     {
-
-        if (eventTmp == this->head && eventTmp == this->last)
+        if (eventTmp == this->head && eventTmp == this->last) //caso 1
         {
             this->head = NULL;
             this->last = NULL;
             this->isEmpty = 1;
             return;
         }
-        else
+        else if (eventTmp != this->head && eventTmp != this->last) //caso 2
         {
-            if (eventTmp == this->head)
+            Event *previousEvent = this->head;
+            while (previousEvent->next->next != NULL)
             {
-                this->head = NULL;
-                this->head = eventTmp->next;
-                return;
-            }
-            else
-            {
-                Event *previousEvent = this->head;
-                while (previousEvent != NULL)
+                if (previousEvent->next == eventTmp)
                 {
-                    if (previousEvent->next == eventTmp)
-                    {
-                        previousEvent->next = NULL;
-                        previousEvent->next = eventTmp->next;
-                        return;
-                    }
-                    else if (previousEvent->next == this->last && previousEvent->next == eventTmp)
-                    {
-                        previousEvent->next = NULL;
-                        this->last = previousEvent;
-                        return;
-                    }
-                    previousEvent = previousEvent->next;
+                    previousEvent->next = NULL;
+                    previousEvent->next = eventTmp->next;
+                    return;
                 }
+                else if (previousEvent->next == this->last && previousEvent->next == eventTmp)
+                {
+                    previousEvent->next = NULL;
+                    this->last = previousEvent;
+                    return;
+                }
+                previousEvent = previousEvent->next;
             }
+            
         }
-
+        else if (eventTmp != this->head && eventTmp == this->last)
+        {
+            this->last = NULL;
+        }
     }
-    }
+}
 
 
-    void ListEvents(EventList *this)
+void ListEvents(EventList *this)
+{
+    if (this->isEmpty==1)
     {
-        if (this->isEmpty==1)
-        {
             printf("empty\n");
-        }
-        else
+    }
+    else
+    {
+        Event *EventoActual=this->head;
+        while(EventoActual != NULL)
         {
-            Event *EventoActual=this->head;
-            while(EventoActual != NULL)
-            {
-                printf("%s\n",EventoActual->eventName);
-                EventoActual=EventoActual->next;
-            }
+            printf("%s\n",EventoActual->eventName);
+            EventoActual=EventoActual->next;
         }
     }
+}
