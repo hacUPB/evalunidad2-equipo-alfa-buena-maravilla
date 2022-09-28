@@ -94,11 +94,15 @@ void AddEvent(EventList *this, Event *event)
         }
     }
 }
+    //Hay 3 casos, si el evento que quiero eliminar es el primero el evento anterior es NULL
+    //Si el ultimo evento es el que quiero eliminar el evento actual tiene que volverse el anterior
+    
     void RemoveEvent(EventList *this, char *name)
     {
         Event *EliminarEvento=NULL;
         Event *EventoActual=this->head;
         Event *EventoAnterior=NULL;
+        int A;
         //Event *PtrEmpty=this->isEmpty;
         //Mientras el evento actual sea NULL se rompe
         //Se crea una variable A que con la funcion strcmp va a comparar si las cadenas de caracteres son iguales 
@@ -110,14 +114,13 @@ void AddEvent(EventList *this, Event *event)
             {
                 break;
             }
-            int A=strcmp(EventoActual->eventName,name);
-            if(!A)
+             A=strcmp(EventoActual->eventName,name);
+            if(A == 0)
             {
                 EliminarEvento=EventoActual;
                 break;
             }
             //Si Diferente de A, se meta al condicional y convierta EliminarEvento en el Evento Actual.
-            
             EventoAnterior=EventoActual;
             EventoActual=EventoActual->next;
         }
