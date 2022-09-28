@@ -4,11 +4,23 @@
 
 Event *CreateEvent(char *name)
 {
-    char a[15];
-    Event *event = malloc(sizeof(Event)*1);
-    strncpy(event->eventName,name,strlen(name)+1);
-    event->next=NULL;
-    return event;
+    if(strlen(name)>=16)
+    {
+        Event *event = malloc(sizeof(Event));
+        memcpy(event->eventName, name, strlen(name));
+        event->eventName[15]=0;
+        event->next=NULL;
+        return event;
+    }
+    else
+    {
+        Event *event = malloc(sizeof(Event));
+        memcpy(event->eventName, name, strlen(name));
+        event->next=NULL;
+        return event;
+    }
+    
+    
 }
 
 void DestroyEvent(Event *this)
