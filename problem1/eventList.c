@@ -47,6 +47,7 @@ void AddEvent(EventList *this, Event *event)
         }
         if (stateAdd){
             this->last->next = event;
+            this->last = event;
         }
     }
 }
