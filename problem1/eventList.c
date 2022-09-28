@@ -21,7 +21,6 @@ void DestroyEventList(EventList *this)
         {
             EventoActual=this->head;
             this->head=this->head->next;
-
         }
 }
 //listo
@@ -38,7 +37,7 @@ Event *SearchEvent(EventList *this, char *name)
                 break;
             }
             int A=strcmp(EventoActual->eventName,name);
-            
+
             if(!A)
             {
                 EncontrarEvento=EventoActual;
@@ -47,7 +46,6 @@ Event *SearchEvent(EventList *this, char *name)
             EventoActual=EventoActual->next;
         }
         return EncontrarEvento;
-
     }
     else
     {
@@ -102,6 +100,11 @@ void AddEvent(EventList *this, Event *event)
         Event *EliminarEvento=NULL;
         Event *EventoActual=this->head;
         Event *EventoAnterior=NULL;
+
+        //Mientras el evento actual sea NULL se rompe
+        //Se crea una variable A que con la funcion strcmp va a comparar si las cadenas de caracteres son iguales 
+        //¿Que cadenas de caracteres?
+        //La cadena EventoActual->evenName y la Cadena Name.
         while(1)
         {
             if(EventoActual==NULL)
@@ -114,6 +117,8 @@ void AddEvent(EventList *this, Event *event)
                 EliminarEvento=EventoActual;
                 break;
             }
+            //Si Diferente de A, se meta al condicional y convierta EliminarEvento en el Evento Actual.
+            
             EventoAnterior=EventoActual;
             EventoActual=EventoActual->next;
 
