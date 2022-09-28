@@ -16,64 +16,149 @@ EventList *CreateEventList(void)
 
 void DestroyEventList(EventList *this)
 {
+    Event   *EventoActual;
+    while(this->head!=NULL)
+        {
+            EventoActual=this->head;
+            this->head=this->head->next;
 
+        }
 }
-
+//listo
 Event *SearchEvent(EventList *this, char *name)
 {
+    if(this->isEmpty!=1)
+    {
+        Event *EncontrarEvento=NULL;
+        Event *EventoActual=this->head;
+        while(1)
+        {
+            if(EventoActual==NULL)
+            {
+                break;
+            }
+            int A=strcmp(EventoActual->eventName,name)
+            if(!A)
+            {
+                EncontrarEvento=EventoActual;
+                break;
+            }
+            EventoActual=EventoActual->next;
+        }
+        return EncontrarEvento;
 
+    }
+    else
+    {
+        return NULL;
+    }
 }
-
+//Listo
 void AddEvent(EventList *this, Event *event)
 {
-    if (this.isEmpty==1)
+    int Revision=0;
+    if (this->isEmpty!=1)
     {
-        this.isEmpty=0;
-        this->head=event;
-        this->last=event;
-        event->next=NULL;
-
-            if (this->isEmpty==1)
+        Event *EventoActual=this->head;
+        while(1)
+        {
+            if(EventoActual==NULL)
             {
-                this->isEmpty=0;
-                this->head=event;
-                this->last=event;
-                event->next=NULL;
+                break;
             }
-
-            else
+            int A=strcmp(EventoActual->eventName,event->eventName);
+            if(!A)
             {
-             this->last->next=event;
-             this->last=event;
+                Revision=1;
+                break;
             }
+            EventoActual=EventoActual->next;
         }
     }
+    if(Revision!=1)
+    {
+        if(this->isEmpty==1)
+        {
+            this->head=event;
+            this->isEmpty=2;
+        }
+        else if(this->isEmpty==2)
+        {
+            this->head->next = event;
+            this->last = event;
+            this->isEmpty = 3; 
+        }
+        else
+        {
+            this->last-next=event;
+            this->last=event;
+        }
+    }
+}
+
     void RemoveEvent(EventList *this, char *name)
     {
+        Event *EliminarEvento=NULL;
+        Event *EventoActual=this->head;
+        Event *EventoAnterior=NULL;
+        while(1)
+        {
+            if(EventoActual==NULL)
+            {
+                break;
+            }
+            int A=strcmp(EventoActual->eventName,name);
+            if(!A)
+            {
+                EliminarEvento=EventoActual;
+                break;
+            }
+            EventoAnterior=EventoActual;
+            EventoActual=EventoActual->next;
+
+        }
+        if(EliminarEvento!=NULL)
+        {
+            if(EliminarEvento==this->head)
+            {
+                if(this->head->next)
+                {
+                    this->isEmpty=1;
+                    this->head=NULL;
+                    DestroyEvent(EliminarEvento); 
+                }
+                else
+                {
+                    this->head=this->head->next;
+                    DestroyEvent(EliminarEvento);
+                }
+            }
+            else
+            {
+                EventoAnterior->next=EventoActual->next;
+                DestroyEvent(EliminarEvento);
+            }
+        }
+        
 
     }
     void ListEvents(EventList *this)
     {
-        int i=1; 
-            if (this->isEmpty==1)
+        if (this->isEmpty==1)
+        {
+            printf("empty\n");
+        }
+        else
+        {
+            Event *EventoActual=this->head;
+            while(1)
             {
-                printf("empty\n");
-            }
-            else
-            { 
-                printf("%s\n",this->head->eventName);
-                while (i!=0)
+                if(EventoActual==NULL)
                 {
-                    if((this->head+i)->next==NULL)
-                    {
-                        i=0;
-                        printf("%s\n",(this->head+i)->eventName);
-                    }
-                    else
-                    {
-                        printf("a");
-                        printf("%s\n",(this->head+i)->eventName);
-                    }
-                } 
+                    break;
+                }
+                printf("%s\n",EventoActual->eventName);
+                EventoActual=EventoActual->next;
             }
+        }
     }
