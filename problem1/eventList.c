@@ -99,7 +99,7 @@ void AddEvent(EventList *this, Event *event)
         Event *EliminarEvento=NULL;
         Event *EventoActual=this->head;
         Event *EventoAnterior=NULL;
-        Event *PtrEmpty=this->isEmpty;
+        //Event *PtrEmpty=this->isEmpty;
         //Mientras el evento actual sea NULL se rompe
         //Se crea una variable A que con la funcion strcmp va a comparar si las cadenas de caracteres son iguales 
         //¿Que cadenas de caracteres?
@@ -128,8 +128,8 @@ void AddEvent(EventList *this, Event *event)
                 if(this->head->next)
                 {
 
-                    this->isEmpty=PtrEmpty;
-                    //this->isEmpty=1;
+                    //this->isEmpty=PtrEmpty;
+                    this->isEmpty=1;
                     this->head=NULL;
                     DestroyEvent(EliminarEvento); 
                 }
