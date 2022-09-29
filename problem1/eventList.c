@@ -34,19 +34,17 @@ void AddEvent(EventList *this, Event *event)
     }
     else
     {
-        Event *tmpEvent = this->head;
-        while (tmpEvent != NULL){
-            int result = strcmp(event->eventName, tmpEvent->eventName);
-            if (result == 0)
-            {
+        Event *currentEvent = this->head;
+        while (currentEvent != NULL){
+            int result = strcmp(event->eventName, currentEvent->eventName);
+            if (result == 0){
                 stateAdd = false;
                 break;
             }
-            else
-            {
+            else{
                 stateAdd = true;
             }
-            tmpEvent = tmpEvent->next;
+            currentEvent = currentEvent->next;
         }
         if (stateAdd){
             this->last->next = event;
@@ -58,14 +56,14 @@ void AddEvent(EventList *this, Event *event)
 
 Event *SearchEvent(EventList *this, char *name)
 {
-    Event *tmpEvent = this->head;
-    while (tmpEvent != NULL){
-        int result = strcmp(name, tmpEvent->eventName);
+    Event *currentEvent = this->head;
+    while (currentEvent != NULL){
+        int result = strcmp(name, currentEvent->eventName);
         if (result == 0){
-            return tmpEvent;
+            return currentEvent;
         }
         else{
-            tmpEvent = tmpEvent->next;
+            currentEvent = currentEvent->next;
         }
     }
     
@@ -79,39 +77,55 @@ void RemoveEvent(EventList *this, char *name)
     Event *eventTmp = SearchEvent(this, name); // busco el evento
     if (eventTmp != NULL)                      // si lo encontró, va a eliminarlo
     {
-        if (eventTmp == this->head && eventTmp == this->last) //caso 1
+
+        if (eventTmp == this->head && eventTmp == this->last)
         {
             this->head = NULL;
             this->last = NULL;
             this->isEmpty = 1;
             return;
         }
-        else if (eventTmp != this->head && eventTmp != this->last) //caso 2
+        else
         {
-            Event *previousEvent = this->head;
-            while (previousEvent->next->next != NULL)
+            if (eventTmp == this->head)
             {
-                if (previousEvent->next == eventTmp)
-                {
-                    previousEvent->next = NULL;
-                    previousEvent->next = eventTmp->next;
+                if (eventTmp->next != NULL){
+                    this->head = NULL;
+                    this->head = eventTmp->next;
                     return;
                 }
-                else if (previousEvent->next == this->last && previousEvent->next == eventTmp)
-                {
-                    previousEvent->next = NULL;
-                    this->last = previousEvent;
+                else{
+                    this->head = NULL;
+                    this->last = NULL;
+                    this->isEmpty = 1;
                     return;
                 }
-                previousEvent = previousEvent->next;
+                
             }
-            
-        }
-        else if (eventTmp != this->head && eventTmp == this->last)
-        {
-            this->last = NULL;
+            else
+            {
+                Event *previousEvent = this->head;
+                while (previousEvent != NULL)
+                {
+                    if (previousEvent->next == eventTmp)
+                    {
+                        previousEvent->next = NULL;
+                        previousEvent->next = eventTmp->next;
+                        return;
+                    }
+                    else if (previousEvent->next == this->last && previousEvent->next == eventTmp)
+                    {
+                        previousEvent->next = NULL;
+                        this->last = previousEvent;
+                        return;
+                    }
+                    previousEvent = previousEvent->next;
+                }
+            }
         }
     }
+    else // de lo contrario, no se pudo borrar el evento
+        return;
 }
 
 
@@ -123,11 +137,11 @@ void ListEvents(EventList *this)
     }
     else
     {
-        Event *EventoActual=this->head;
-        while(EventoActual != NULL)
+        Event *currentEvent=this->head;
+        while(currentEvent != NULL)
         {
-            printf("%s\n",EventoActual->eventName);
-            EventoActual=EventoActual->next;
+            printf("%s\n",currentEvent->eventName);
+            currentEvent=currentEvent->next;
         }
     }
 }
